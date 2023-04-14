@@ -1,22 +1,63 @@
-class Person {
-  String name = 'prashant';
-  int age = 30;
+import 'package:flutter/material.dart';
+import './question.dart';
+
+void main() {
+  runApp(const MyApp());
 }
 
-double addNumbers(double num1, int num2) {
-  // print(num1 + num2);
-  return num1 + num2;
+// void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-void main(List<String> args) {
-  var p1 = Person();
-  var p2 = Person();
-  p2.name = 'manu';
-  print(p1.name);
-  print(p2.name);
-  // var firstResult = addNumbers(1.23, 2);
-  // firstResult = addNumbers(1, 1);
-  // print(firstResult + 1);
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
 
-  // print(addNumbers(1.23, 2));
+  void answerQuestion() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var questions = [
+      'What\'s your favorite color?',
+      'What\'s your favorite animal?',
+    ];
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My First App'),
+        ),
+        body: Column(
+          children: [
+            Question(
+              questions[_questionIndex],
+            ),
+            ElevatedButton(
+              onPressed: answerQuestion,
+              child: const Text('Answer 1'),
+            ),
+            ElevatedButton(
+              child: const Text('Answer 2'),
+              onPressed: () => print('Answer 2 chosen!'),
+            ),
+            ElevatedButton(
+              child: const Text('Answer 3'),
+              onPressed: () {
+                // ...
+                print('Answer 3 chosen');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
